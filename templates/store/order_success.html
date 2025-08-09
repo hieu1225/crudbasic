@@ -1,0 +1,12 @@
+<!-- templates/store/order_success.html -->
+{% extends 'store/base.html' %}
+
+{% block title %}Đặt hàng thành công{% endblock %}
+
+{% block content %}
+    <div class="alert alert-success text-center">
+        <h1>Đặt hàng thành công!</h1>
+        <p>Cảm ơn bạn đã mua sách tại Bookstore Anh Em. Chúng tôi sẽ liên hệ với bạn sớm.</p>
+        <a href="{% url 'book_list' %}" class="btn btn-primary">Tiếp tục mua sắm</a>
+    </div>
+{% endblock %}

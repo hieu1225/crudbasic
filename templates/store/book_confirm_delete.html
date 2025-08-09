@@ -1,0 +1,15 @@
+
+<!-- templates/store/book_confirm_delete.html -->
+{% extends 'store/base.html' %}
+
+{% block title %}Xác nhận xóa{% endblock %}
+
+{% block content %}
+    <h1>Bạn có chắc muốn xóa sách "{{ object.title }}"?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Hành động này không thể hoàn tác.</p>
+        <button type="submit" class="btn btn-danger">Có, Xóa!</button>
+        <a href="{% url 'book_detail' object.pk %}" class="btn btn-secondary">Hủy</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- templates/store/book_form.html -->
+{% extends 'store/base.html' %}
+
+{% block title %}Form Sách{% endblock %}
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Sửa Sách{% else %}Thêm Sách Mới{% endif %}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+{% endblock %}

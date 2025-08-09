@@ -1,0 +1,43 @@
+<!-- templates/store/book_detail.html -->
+{% extends 'store/base.html' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            {% if book.image %}
+                <img src="{{ book.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ book.title }}">
+            {% else %}
+                <img src="https://via.placeholder.com/400x600.png?text=No+Image" class="img-fluid rounded shadow-sm" alt="No Image">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h1>{{ book.title }}</h1>
+            <h3 class="text-muted">Tác giả: {{ book.author }}</h3>
+            <p class="display-6 fw-bold text-danger my-3">{{ book.price|floatformat:"0" }} VNĐ</p>
+            
+            <div class="description-box bg-light p-3 rounded mb-3">
+                <p>{{ book.description|linebreaks }}</p>
+            </div>
+            
+            <a href="{% url 'buy_now' book.pk %}" class="btn btn-success btn-lg w-100 mb-3">Mua ngay</a>
+            
+            <hr>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'book_list' %}" class="btn btn-secondary">
+                    « Quay lại danh sách
+                </a>
+                
+                <!-- Chỉ admin (staff) mới thấy các nút chức năng này -->
+                {% if user.is_staff %}
+                <div class="admin-actions">
+                    <a href="{% url 'book_update' book.pk %}" class="btn btn-sm btn-warning">Sửa</a>
+                    <a href="{% url 'book_delete' book.pk %}" class="btn btn-sm btn-danger">Xóa</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

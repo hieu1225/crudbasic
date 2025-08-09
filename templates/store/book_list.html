@@ -1,0 +1,30 @@
+<!-- templates/store/book_list.html -->
+{% extends 'store/base.html' %}
+
+{% block title %}Danh sách sách{% endblock %}
+
+{% block content %}
+    <h1>Chào mừng đến với Bookstore!</h1>
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" class="card-img-top" alt="{{ book.title }}" style="height: 300px; object-fit: cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x300.png?text=No+Image" class="card-img-top" alt="No Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Tác giả: {{ book.author }}</p>
+                    <p class="card-text fw-bold">Giá: {{ book.price|floatformat:"0" }} VNĐ</p>
+                    <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">Xem chi tiết</a>
+                    <a href="{% url 'buy_now' book.pk %}" class="btn btn-success">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Chưa có sách nào trong cửa hàng.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

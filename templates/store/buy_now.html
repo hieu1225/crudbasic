@@ -1,0 +1,44 @@
+<!-- templates/store/buy_now.html -->
+{% extends 'store/base.html' %}
+
+{% block title %}Mua Sách: {{ book.title }}{% endblock %}
+
+{% block content %}
+    <h1>Xác nhận mua hàng</h1>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ book.image.url }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Giá: {{ book.price|floatformat:"0" }} VNĐ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            <p>Bạn đang mua hàng với tài khoản: <strong>{{ user.username }}</strong></p>
+            <p>Chúng tôi sẽ gửi hàng đến địa chỉ đã đăng ký của bạn.</p>
+        {% else %}
+            <h4>Thông tin giao hàng (Khách vãng lai)</h4>
+            <div class="mb-3">
+                <label for="name" class="form-label">Họ và tên</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Địa chỉ</label>
+                <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+        {% endif %}
+        <button type="submit" class="btn btn-success">Xác nhận đặt hàng</button>
+    </form>
+{% endblock %}
